@@ -1,0 +1,50 @@
+Example Run-Through
+
+Please Enter the players names currently at the table
+player1: Liam
+player2: Sam
+player3: Callum
+
+Please set the dealer chip
+player: 'player1' OR 'Liam'
+
+Please set the current blinds
+Big Blind (BB): 0.02
+Small Blind (SB): 0.01
+
+
+Instructions
+
+Input the players actions as follows:
+
+C - Check
+F - Fold
+0.04 - a $0.04 bet or raise
+
+Move Dealer Chip: e.g. 'dealer -> Sam', dealer is now Sam
+Player Switch: e.g. 'player1 -> James' at the start of a hand, player1 = James
+               or   'player1 -> N/A' player1 = none
+Blind Change: e.g. 'blinds -> 0.04/0.02', BB = 0.04 and SB = 0.02
+
+Stats
+Player1: Liam
+VPIP 54 | PFR 23 | AF 3
+
+--New Hand--
+Sam: F
+Callum: 0.02
+Liam: C
+-Flop-
+Callum:C
+Liam: C
+-Turn-
+Callum: 0.04
+Liam: 0.04
+-River-
+Callum: C
+Liam: C
+
+
+Example data
+hand, chip-stacks, pre-flop bets, flop, flop bets, turn, turn bets, river, river bets, result
+1, [1500, 1400, 1320], [20, 20, 20], [10d, 4s, 3c], [0, 0, 0], Kd, [20, 20, 20], Qd, [0, 0, 0],
