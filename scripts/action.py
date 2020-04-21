@@ -2,8 +2,18 @@ from scripts import check_hands as check
 from helpers import player_helpers
 
 
-def player_action(players, table):
+def player_action_input(player, table):
     actions_available = ['C', 'c', 'R', 'r', 'B', 'b', 'F', 'f', '', ' ', 'check']
+    player.player_action = 'NA'
+    while player.player_action not in actions_available:
+        player_move = input(f'{player.name}: ')
+        if player_move not in actions_available:
+            print('Invalid action! '
+                  'Please enter C (call), B (bet), R (raise), F (fold) or blank for a check')
+        player_helpers.update_player_action(player, player_move, table)
+
+
+def action_all_hand_players(players, table):
     table.player_raises = False
     table.player_bets = False
     all_players_actioned = False
@@ -15,15 +25,8 @@ def player_action(players, table):
             table.hand_players.append(player)
         if table.player_raises is False and table.player_bets is False and player.current_hand is True:
             # If they're still playing
-            # if ordered_player.current_hand is True:
             player.player_action = 'NA'
-            while player.player_action not in actions_available:
-                player_move = input(f'{player.name}: ')
-                if player_move not in actions_available:
-                    print('Invalid action! '
-                          'Please enter C (call), B (bet), R (raise), F (fold) or blank for a check')
-                player_helpers.update_player_action(player, player_move, table)
-
+            player_action_input(player, table)
             action_counter += 1
 
     if action_counter >= len(table.hand_players):
@@ -36,11 +39,11 @@ def round_of_betting(table, preflop=False):
     for player in table.table_players:
         player.player_action = 'NA'
 
-    round_of_betting_complete = False
+    table.round_of_betting_complete = False
 
-    while round_of_betting_complete is False:
+    while table.round_of_betting_complete is False:
 
-        all_players_actioned = player_action(table.table_players, table)
+        all_players_actioned = action_all_hand_players(table.table_players, table)
 
         if all_players_actioned is False:
             # Find the better or raiser
@@ -63,28 +66,13 @@ def round_of_betting(table, preflop=False):
         elif all_players_actioned is True:
             if preflop:
                 # Everyone calls or folds
-                call_fold_counter = check.check_actions(table.hand_players, ['c', 'C', 'f', 'F'])
-                if call_fold_counter == len(table.hand_players) - 1 and table.hand_players[-1].player_action not in ['b', 'B', 'r', 'R']:
-                    round_of_betting_complete = True
+                check.preflop_everyone_calls_folds_and_bb_checks(table)
 
             # Everyone checks
-            check_counter = check.check_actions(table.hand_players, ['', ' ', 'check'])
-            if check_counter == len(table.hand_players):
-                round_of_betting_complete = True
+            check.everyone_checks(table)
 
             # Everyone folds
-            fold_counter = 0
-            for player in table.hand_players:
-                if player.current_hand == False:
-                    fold_counter += 1
-                if fold_counter == len(table.hand_players) - 1:
-                    round_of_betting_complete = True
-                    table.active_hand = False
+            check.everyone_folds(table)
 
             # Everyone calls or folds
-            call_fold_counter = 0
-            for player in table.hand_players:
-                if player.player_action in ['f', 'F', 'c', 'C']:
-                    call_fold_counter += 1
-                if call_fold_counter == len(table.hand_players):
-                    round_of_betting_complete = True
+            check.everyone_calls_or_folds(table)

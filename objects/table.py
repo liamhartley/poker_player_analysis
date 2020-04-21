@@ -6,10 +6,11 @@ class TableClass:
         self.table_players = []
         self.hand_players = []
         self.end_session = False
-        self.player_bets = False
-        self.player_raises = False
         self.current_state = 'pre-flop'
         self.active_hand = True
+        self.player_bets = False
+        self.player_raises = False
+        self.round_of_betting_complete = False
 
     def initialise_players(self):
         # TODO verify that they enter something and check that name doesn't already exist
@@ -124,7 +125,6 @@ class TableClass:
             self.player_bets = True
         elif action == 'F' or 'f':
             player.current_hand = False
-
 
     def update_players_AF(self):
         for player in self.table_players:
