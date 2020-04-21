@@ -51,3 +51,12 @@ def everyone_calls_or_folds(table):
     call_fold_counter = count_actions(table.hand_players, ['f', 'F', 'c', 'C'])
     if call_fold_counter == len(table.hand_players):
         table.round_of_betting_complete = True
+
+
+def find_the_action(table, actions: List):
+    index = 'NA'
+    for player in table.hand_players:
+        if index is 'NA':
+            if player.player_action in actions:
+                index = table.hand_players.index(player)
+    return index

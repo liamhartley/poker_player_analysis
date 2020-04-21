@@ -38,41 +38,25 @@ def round_of_betting(table, preflop=False):
 
     for player in table.table_players:
         player.player_action = 'NA'
-
     table.round_of_betting_complete = False
 
     while table.round_of_betting_complete is False:
-
         all_players_actioned = action_all_hand_players(table.table_players, table)
 
+        # Someone raised or bets, so other players need to action again
         if all_players_actioned is False:
-            # Find the better or raiser
-            if table.player_bets is True or table.player_raises is True:
-                bet_index = 'NA'
-                raise_index = 'NA'
-                for players_round_complete in table.hand_players:
-                    if bet_index and raise_index == 'NA':
-                        if players_round_complete.player_action == 'b' or players_round_complete.player_action == 'B':
-                            bet_index = table.hand_players.index(players_round_complete)
-                        elif players_round_complete.player_action == 'r' or players_round_complete.player_action == 'R':
-                            raise_index = table.hand_players.index(players_round_complete)
+            if table.player_bets is True:
+                bet_index = check.find_the_action(table, ['b', 'B'])
+                table.hand_players = table.table_players[(bet_index+1):] + table.table_players[:bet_index]
+            elif table.player_raises is True:
+                raise_index = check.find_the_action(table, ['r', 'R'])
+                table.hand_players = table.table_players[(raise_index+1):] + table.table_players[:raise_index]
 
-                # Re-order the list and run again
-                if bet_index is not 'NA':
-                    table.hand_players = table.table_players[(bet_index+1):] + table.table_players[:bet_index]
-                elif raise_index is not 'NA':
-                    table.hand_players = table.table_players[(raise_index+1):] + table.table_players[:raise_index]
-
+        # Everyone has actioned, check to see if the round is complete
         elif all_players_actioned is True:
             if preflop:
-                # Everyone calls or folds
                 check.preflop_everyone_calls_folds_and_bb_checks(table)
 
-            # Everyone checks
             check.everyone_checks(table)
-
-            # Everyone folds
             check.everyone_folds(table)
-
-            # Everyone calls or folds
             check.everyone_calls_or_folds(table)
