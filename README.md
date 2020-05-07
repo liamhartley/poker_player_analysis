@@ -1,6 +1,6 @@
 # Poker Player Analysis
 
-![Poker Player Analysis Logo](https://github.com/liamhartley/pokerplayeranalysis/blob/master/images/logo.png)
+![Poker Player Analysis Logo](https://github.com/liamhartley/pokerplayeranalysis/blob/master/images/logo_small.png)
 
 ## Contents
 0. [Introduction](#introduction)
