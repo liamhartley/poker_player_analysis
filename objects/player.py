@@ -1,7 +1,10 @@
 class PlayerClass:
-    def __init__(self, name):
+    def __init__(self, name: str, table_position: int):
         self.name = name
-        self.position = ''
+        self.table_position = table_position
+        self.is_dealer = False
+        self.has_bet = False
+        self.has_raised = False
         self.is_active = True
         self.current_hand = True
         self.player_action = ''
@@ -14,5 +17,6 @@ class PlayerClass:
         self.hands_played = 0
         self.AF = 'NA'
         self.VPIP = 0
+        self.VPIP_pct = 0
         self.PFR = 0
         self.PFR_pct = 0
