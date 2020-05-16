@@ -19,4 +19,4 @@ if __name__ == '__main__':
     while poker_table.end_session is False:
         poker_table.print_player_stats()
         play_hand(poker_table)
-        poker_table.update_players_AF()
+        poker_table.update__table_players_stats()

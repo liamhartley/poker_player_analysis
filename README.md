@@ -48,8 +48,8 @@ Open 'run.py' to start the program and follow the prompts to initialise the prog
 <a name="futureimprovements"></a>
 ## Future Improvements 
 
-- Get it into Alpha.
-- Make it work with less than 4 players (player sort)
+- More validation around user actions.
+- All 'TODOs' in project
 
 <a name="howtocontribute"></a>
 ## How to Contribute 
