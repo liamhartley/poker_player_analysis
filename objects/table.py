@@ -127,19 +127,18 @@ class TableClass:
         # AF
         for player in self.table_players:
             if player.raises > 0 and player.bets > 0 and player.calls > 0:
-                player.AF = ((player.raises + player.bets)/player.calls)
+                player.AF = str(int(((player.raises + player.bets)/player.calls)))
             else:
                 player.AF = 'NA'
 
         # VPIP
         for player in self.table_players:
             if player.VPIP > 0:
-                player.VPIP_pct = player.VPIP / player.hands_played
-
+                player.VPIP_pct = str(int((player.VPIP / player.hands_played) * 100)) + '%'
         # PFR
         for player in self.table_players:
             if player.PFR > 0:
-                player.PFR_pct = player.PFR / player.hands_played
+                player.PFR_pct = str(int((player.PFR / player.hands_played) * 100)) + '%'
 
     def count_players_playing(self):
         for player in self.table_players:
@@ -148,7 +147,7 @@ class TableClass:
 
     def remove_players(self):
         print('Were any players knocked out?')
-        response = input('(N / Y or blank): ')
+        response = input('(Y / N or blank): ')
         if response in ['N', 'n', ' ', '']:
             pass
         elif response in ['Y', 'y']:
@@ -163,4 +162,7 @@ class TableClass:
                         if table_player.is_dealer is True:
                             self.move_dealer()
                         self.table_players.remove(table_player)
-        print('\n')
+
+    def all_players_current_hand(self):
+        for player in self.table_players:
+            player.current_hand = True

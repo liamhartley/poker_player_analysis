@@ -18,6 +18,7 @@ def update_player_action(player, player_action, table):
         player.player_action = 'r'
         for other_players in table.hand_players:
             other_players.has_raised = False
+            other_players.has_bet = False
         player.has_raised = True
         table.player_raises = True
         if table.current_state is 'pre-flop':

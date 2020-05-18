@@ -1,10 +1,3 @@
-import unittest
-from scripts import action
-from scripts import check_hands
-from objects import player
-from objects import table
-
-
 # TODO re-write since project refactor
 
 # # Class TestSortPlayers(unittest.TestCase):
