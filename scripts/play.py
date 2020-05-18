@@ -9,6 +9,7 @@ def play_hand(active_table):
     if active_table.first_hand is False:
         active_table.move_dealer()
         active_table.remove_players()
+        active_table.all_players_current_hand()
 
     print('---- Pre-Flop ----')
     active_table.current_state = 'pre-flop'
