@@ -15,24 +15,26 @@ def play_hand(active_table):
     table.sort_players(active_table, player_index='dealer', preflop=True)
     round_of_betting(active_table)
 
-    # active_table.calculate_VPIP() % of hands played
-    if active_table.active_hand is True:
+    # ---- Flop ----
+    active_table.count_players_playing()
+    active_table.current_state = 'flop'
+    table.sort_players(active_table, player_index='dealer')
+    if active_table.active_hand is True and len(active_table.hand_players) > 1:
         print('---- Flop ----')
-        active_table.count_players_playing()
-        active_table.current_state = 'flop'
-        table.sort_players(active_table, player_index='dealer')
         round_of_betting(active_table)
 
-    if active_table.active_hand is True:
+    # ---- Turn ----
+    active_table.current_state = 'turn'
+    table.sort_players(active_table, player_index='dealer')
+    if active_table.active_hand is True and len(active_table.hand_players) > 1:
         print('---- Turn ----')
-        active_table.current_state = 'turn'
-        table.sort_players(active_table, player_index='dealer')
         round_of_betting(active_table)
 
-    if active_table.active_hand is True:
+    # ---- River ----
+    active_table.current_state = 'river'
+    table.sort_players(active_table, player_index='dealer')
+    if active_table.active_hand is True and len(active_table.hand_players) > 1:
         print('---- River ----')
-        active_table.current_state = 'river'
-        table.sort_players(active_table, player_index='dealer')
         round_of_betting(active_table)
 
     print('\n---- Hand Complete! ----\n')

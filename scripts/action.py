@@ -33,7 +33,9 @@ def action_all_hand_players(players, table):
                 player_action_input(player, table)
                 action_counter += 1
 
-    if action_counter == len(table.hand_players):
+    if action_counter == len(table.hand_players) \
+            and table.player_raises is False\
+            and table.player_bets is False:
         all_players_actioned = True
     return all_players_actioned
 
